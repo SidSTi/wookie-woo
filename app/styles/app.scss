@@ -1,1 +1,30 @@
-@import 'components/all';
+#WOOKIE_WOO {
+  margin: 10px auto;
+
+  // common definitions
+  @import "definitions/all";
+
+  // layouts and other page-specific stylings
+  @import "sections/all";
+
+  // components: reusable patterns
+  @import "components/all";
+}
+
+@media screen and (min-width: $screen-lg-min) {
+  #WOOKIE_WOO {
+    max-width: $screen-lg-max;
+  }
+}
+
+@media screen and (max-width: $screen-lg-min) {
+  #WOOKIE_WOO {
+    max-width: $screen-md-max;
+  }
+}
+
+@media screen and (max-width: $screen-md-min) {
+  #WOOKIE_WOO {
+    max-width: $screen-sm-max;
+  }
+}

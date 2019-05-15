@@ -11,7 +11,9 @@ export default Route.extend({
    * 
    * @returns {DS.PromiseArray}
    */
-  model() {
-    return this.store.findAll('film');
+  model({
+    id
+  }) {
+    return this.store.findRecord('film', id);
   }
 });
