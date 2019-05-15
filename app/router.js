@@ -10,6 +10,9 @@ Router.map(function() {
   this.route('films', {
     path: '/'
   });
+  this.route('film', {
+    path: '/films/:id'
+  });
 });
 
 export default Router;
