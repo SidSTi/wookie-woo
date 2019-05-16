@@ -26,7 +26,7 @@ export default Service.extend({
   store: null,
 
   /**
-   * The default request timeout.
+   * The request timeout period. (Default: 5 minutes).
    * 
    * @private
    * @property {number} timeout
