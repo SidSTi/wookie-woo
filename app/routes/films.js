@@ -9,9 +9,9 @@ export default Route.extend({
    * @public
    * @function model
    * 
-   * @returns {DS.PromiseArray}
+   * @returns {Promise}
    */
   model() {
-    return this.store.findAll('film');
+    return this.api.findAll('films');
   }
 });
