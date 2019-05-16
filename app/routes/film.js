@@ -14,6 +14,6 @@ export default Route.extend({
   model({
     id
   }) {
-    return this.store.findRecord('film', id);
+    return this.api.findRecord('films', id);
   }
 });

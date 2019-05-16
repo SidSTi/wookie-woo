@@ -15,6 +15,12 @@ module.exports = {
     browser: true
   },
   rules: {
+    'no-console': [
+      'error',
+      {
+        allow: ['error', 'info', 'warn']
+      }
+    ]
   },
   overrides: [
     // node files
