@@ -1,0 +1,7 @@
+<ul class="box-office__list">
+  {{#each model as |film|}}
+    <li class="box-office__container">
+      <BoxOffice::Item @model={{film}}/>
+    </li>
+  {{/each}}
+</ul>

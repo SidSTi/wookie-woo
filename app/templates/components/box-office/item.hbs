@@ -1,0 +1,18 @@
+<header class="box-office__header">
+  {{#link-to "film" this.model.episode_id class="box-office__title"}}
+    {{this.model.title}}
+  {{/link-to}}
+  <span class="box-office__episode">
+    (Episode {{this.model.episode_id}})
+  </span>
+</header>
+<main class="box-office__content">
+  <span class="box-office__pill">
+    <span>Director</span>
+    <span>{{this.model.director}}</span>
+  </span>
+  <span class="box-office__pill">
+    <span>Release Date</span>
+    <span>{{moment-format this.model.release_date "MMM Do YYYY" "YYYY-MM-DD"}}</span>
+  </span>
+</main>
