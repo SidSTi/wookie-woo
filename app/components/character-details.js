@@ -2,6 +2,10 @@ import Component from '@ember/component';
 import {
   set
 } from '@ember/object';
+import {
+  all,
+  hash
+} from 'rsvp';
 
 export default Component.extend({
 
@@ -34,6 +38,15 @@ export default Component.extend({
   model: null,
 
   /**
+   * Character species.
+   *
+   * @public
+   * @property species
+   * @type {Object[]}
+   */
+  species: null,
+
+  /**
    * Default tag name for this component.
    *
    * @override
@@ -42,6 +55,44 @@ export default Component.extend({
    * @type {string}
    */
   tagName: 'section',
+
+  /**
+   * Toggle component load state.
+   *
+   * @override
+   * @public
+   * @property loading
+   * @type {boolean}
+   */
+  loading: false,
+
+  /**
+   * Build an array of species.
+   *
+   * @private
+   * @function buildSpecies
+   * @param {Object[]} characters
+   * 
+   * @return {Object[]}
+   */
+  buildSpecies(characters) {
+    return Object.values(characters.reduce((collection, character) => {
+        let hasSpecies = Array.isArray(character.species) && character.species.length > 0;
+        let species = hasSpecies ? character.species[0].name : 'unknown';
+
+        if (collection[species]) {
+          collection[species].count++
+        } else {
+          collection[species] = {
+            name: species,
+            count: 1
+          }
+        }
+
+        return collection;
+      }, {}))
+      .sort((previous, next) => next.count - previous.count);
+  },
 
   /**
    * Ember called upon each subsequent attribute insertion/update.
@@ -55,7 +106,32 @@ export default Component.extend({
   didReceiveAttrs() {
     this._super(...arguments);
 
-    this.api.findMany(this.links)
-      .then(results => set(this, 'model', results));
+    if (this.links) {
+      set(this, 'loading', true);
+
+      this.api.findMany(this.links)
+        .then(results => {
+          return all(results.map(({
+            name,
+            mass,
+            height,
+            species,
+            homeworld
+          }) => {
+            return hash({
+              name,
+              mass,
+              height,
+              species: this.api.findMany(species),
+              homeworld: this.api.find(homeworld)
+            })
+          }));
+        })
+        .then(results => {
+          set(this, 'model', results);
+          set(this, 'species', this.buildSpecies(results));
+        })
+        .finally(() => set(this, 'loading', false));
+    }
   }
 });

@@ -19,5 +19,15 @@ export default Component.extend({
    * @property model
    * @type {Object[]}
    */
-  model: null
+  model: null,
+
+  /**
+   * Default tag name for this component.
+   *
+   * @override
+   * @public
+   * @property tagName
+   * @type {string}
+   */
+  tagName: 'article',
 });

@@ -1,3 +1,15 @@
-{{#each model as |character|}}
-  <CharacterDetails::Item @model={{character}}/>
-{{/each}}
+<section class="character-details__species-list">
+  {{#each this.species as |species|}}
+    <Species @count={{species.count}} @name={{species.name}}/>
+  {{/each}}
+</section>
+
+<section class="character-details__list-controls">
+  <PureSelect/>
+</section>
+
+<section class="character-details__container">
+  {{#each model as |character|}}
+    <CharacterDetails::Item @model={{character}}/>
+  {{/each}}
+</section>
