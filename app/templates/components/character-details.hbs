@@ -5,7 +5,7 @@
 </section>
 
 <section class="character-details__list-controls">
-  <PureSelect/>
+  <PureSelect @name="sort-by" @placeholder="Sort By" @model={{this.sortOptions}} @onSelect={{action "sortBy"}}/>
 </section>
 
 <section class="character-details__container">

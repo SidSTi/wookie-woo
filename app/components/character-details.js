@@ -47,6 +47,15 @@ export default Component.extend({
   species: null,
 
   /**
+   * Character sort by options.
+   *
+   * @public
+   * @property sortOptions
+   * @type {Object[]}
+   */
+  sortOptions: null,
+
+  /**
    * Default tag name for this component.
    *
    * @override
@@ -95,7 +104,26 @@ export default Component.extend({
   },
 
   /**
-   * Ember called upon each subsequent attribute insertion/update.
+   * Lifecycle hook called upon component insertion into DOM.
+   *
+   * @override
+   * @private
+   * @function didInsertElement
+   * 
+   * @returns {void}
+   */
+  didInsertElement() {
+    this._super(...arguments);
+
+    set(this, 'sortOptions', ['name',
+      'mass',
+      'height',
+      'homeworld'
+    ]);
+  },
+
+  /**
+   * Lifecycle hook called upon each subsequent attribute insertion/update.
    *
    * @override
    * @private
@@ -132,6 +160,59 @@ export default Component.extend({
           set(this, 'species', this.buildSpecies(results));
         })
         .finally(() => set(this, 'loading', false));
+    }
+  },
+
+  /**
+   * Actions hash.
+   *
+   * @public
+   * @property actions
+   * @type {Object}
+   */
+  actions: {
+
+    /**
+     * Call this action to sort characters by attribute.
+     *
+     * @private
+     * @function sortBy
+     * @param {string} attribute - the attribute type.
+     */
+    sortBy(attribute) {
+      let modelCopy = [...this.model];
+
+      switch (attribute) {
+        case 'mass':
+          modelCopy.sort((a, b) => {
+            if (isNaN(a) || isNaN(b)) {
+              return a.mass.localeCompare(b.mass);
+            }
+
+            return a.mass - b.mass
+          });
+          break;
+        case 'height':
+          modelCopy.sort((a, b) => {
+            if (isNaN(a) || isNaN(b)) {
+              return a.height.localeCompare(b.height);
+            }
+
+            return a.height - b.height
+          });
+          break;
+        case 'name':
+          modelCopy.sort((a, b) => a.name.localeCompare(b.name));
+          break;
+        case 'homeworld':
+          modelCopy.sort((a, b) => a.homeworld.name.localeCompare(b.homeworld.name));
+          break;
+        default:
+          modelCopy.sort((a, b) => a.name.localeCompare(b.name));
+          break;
+      }
+
+      set(this, 'model', modelCopy);
     }
   }
 });
