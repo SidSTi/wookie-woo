@@ -9,7 +9,7 @@ export default Route.extend({
    * @public
    * @function model
    * 
-   * @returns {DS.PromiseArray}
+   * @returns {Promise}
    */
   model({
     id

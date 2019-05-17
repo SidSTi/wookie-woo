@@ -1,7 +1,7 @@
 .navigation {
   display: flex;
   align-items: center;
-  padding: 15px;
+  padding: 15px 25px;
   border-left: 5px solid $secondary-foreground;
   border-top: 5px solid $secondary-foreground;
   border-top-left-radius: 30px;
@@ -37,6 +37,22 @@
         color: $secondary-foreground;
         transition: color 1s;
       }
+    }
+  }
+}
+
+// mobile
+@media screen and (max-width: $screen-md-min) {
+  .navigation {
+    align-items: flex-start;
+    flex-direction: column;
+
+    &__header {
+      margin-bottom: 10px;
+    }
+
+    &__links {
+      margin-left: 0;
     }
   }
 }

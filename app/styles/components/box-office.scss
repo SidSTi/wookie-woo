@@ -1,16 +1,27 @@
 .box-office {
-  color: $primary-foreground;
-  border-left: 5px solid $secondary-foreground;
-  padding-top: 20px;
-
   &__list {
     margin: 0;
     list-style: none;
-    padding: 0 25px;
+    padding: 0;
   }
 
   &__item {
-    margin-bottom: 20px;
+    color: $primary-foreground;
+    margin-bottom: 25px;
+
+    &--static {
+      .box-office__title {
+        pointer-events: none;
+
+        &:hover {
+          border-bottom-color: transparent;
+        }
+
+        &:focus {
+          outline: none;
+        }
+      }
+    }
   }
 
   &__container {
@@ -21,7 +32,7 @@
   &__header {
     display: flex;
     align-items: center;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
   }
 
   &__content {
@@ -33,7 +44,8 @@
     display: inline-flex;
     flex-flow: column;
     border-left: 1px solid $secondary-foreground;
-    padding-left: 5px;
+    padding-left: 10px;
+    font-size: 1.1rem;
 
     span:first-child {
       text-transform: uppercase;
@@ -65,6 +77,21 @@
 
     &:focus {
       outline: 1px dotted $secondary-foreground;
+    }
+  }
+}
+
+// mobile
+@media screen and (max-width: $screen-md-min) {
+  .box-office {
+    &__header {
+      align-items: flex-start;
+      flex-direction: column;
+      margin-bottom: 10px;
+    }
+
+    &__title {
+      margin-bottom: 5px;
     }
   }
 }

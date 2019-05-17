@@ -10,17 +10,7 @@ export default Component.extend({
    * @property classNames
    * @type {string[]}
    */
-  classNames: ['box-office__item'],
-
-  /**
-   * A list of properties of the view to apply as class names.
-   *
-   * @private
-   * @override
-   * @property classNameBindings
-   * @type {string[]}
-   */
-  classNameBindings: ['isStatic:box-office__item--static'],
+  classNames: ['character-details__item'],
 
   /**
    * Component cache.
@@ -39,15 +29,5 @@ export default Component.extend({
    * @property tagName
    * @type {string}
    */
-  tagName: 'section',
-
-  /**
-   * Default tag name for this component.
-   *
-   * @override
-   * @public
-   * @property isStatic
-   * @type {boolean}
-   */
-  isStatic: false
+  tagName: 'article',
 });

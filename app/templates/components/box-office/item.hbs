@@ -1,5 +1,5 @@
 <header class="box-office__header">
-  {{#link-to "film" this.model.episode_id class="box-office__title"}}
+  {{#link-to "film" (extract-slug this.model.url) class="box-office__title"}}
     {{this.model.title}}
   {{/link-to}}
   <span class="box-office__episode">
