@@ -1,0 +1,55 @@
+.pure-select {
+  position: relative;
+  display: inline-flex;
+  width: 13em;
+  height: 3em;
+  line-height: 3;
+  background: $primary-background;
+  border: 1px solid #000;
+  overflow: hidden;
+  border-radius: .25em;
+  transition: .25s all ease;
+
+  select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -ms-appearance: none;
+    appearance: none;
+    outline: 0;
+    box-shadow: none;
+    border: 0 !important;
+    background: $primary-background;
+    background-image: none;
+    font-size: 1rem;
+  }
+
+  select {
+    flex: 1;
+    padding: 0 .5em;
+    padding-left: 1em;
+    color: #fff;
+    cursor: pointer;
+  }
+
+  &::after {
+    content: '\25BC';
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 0 1em;
+    background: $primary-background;
+    cursor: pointer;
+    pointer-events: none;
+    transition: .25s all ease;
+  }
+
+  &:hover::after {
+    color: $secondary-foreground;
+  }
+
+  &:focus,
+  &:hover {
+    border-color: $secondary-foreground;
+    transition: .25s all ease;
+  }
+}

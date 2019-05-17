@@ -1,0 +1,97 @@
+.box-office {
+  &__list {
+    margin: 0;
+    list-style: none;
+    padding: 0;
+  }
+
+  &__item {
+    color: $primary-foreground;
+    margin-bottom: 25px;
+
+    &--static {
+      .box-office__title {
+        pointer-events: none;
+
+        &:hover {
+          border-bottom-color: transparent;
+        }
+
+        &:focus {
+          outline: none;
+        }
+      }
+    }
+  }
+
+  &__container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+
+  &__content {
+    display: flex;
+  }
+
+  &__pill {
+    margin-right: 20px;
+    display: inline-flex;
+    flex-flow: column;
+    border-left: 1px solid $secondary-foreground;
+    padding-left: 10px;
+    font-size: 1.1rem;
+
+    span:first-child {
+      text-transform: uppercase;
+      margin-right: 5px;
+      font-size: 0.7rem;
+      margin-bottom: 3px;
+    }
+  }
+
+  &__episode {
+    display: flex;
+    text-transform: uppercase;
+  }
+
+  &__title {
+    margin: 0;
+    font-weight: 100;
+    font-style: italic;
+    font-size: 2rem;
+    color: $secondary-foreground;
+    text-decoration: none;
+    border-bottom: 2px solid transparent;
+    margin-right: 10px;
+
+    &:hover {
+      border-bottom-color: $secondary-foreground;
+      transition: 0.3s border-bottom-color;
+    }
+
+    &:focus {
+      outline: 1px dotted $secondary-foreground;
+    }
+  }
+}
+
+// mobile
+@media screen and (max-width: $screen-md-min) {
+  .box-office {
+    &__header {
+      align-items: flex-start;
+      flex-direction: column;
+      margin-bottom: 10px;
+    }
+
+    &__title {
+      margin-bottom: 5px;
+    }
+  }
+}

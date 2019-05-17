@@ -11,7 +11,9 @@ export default Route.extend({
    * 
    * @returns {Promise}
    */
-  model() {
-    return this.api.findAll('films');
+  model({
+    id
+  }) {
+    return this.api.findRecord('films', id);
   }
 });

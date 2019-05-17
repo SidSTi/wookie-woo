@@ -1,0 +1,58 @@
+.navigation {
+  display: flex;
+  align-items: center;
+  padding: 15px 25px;
+  border-left: 5px solid $secondary-foreground;
+  border-top: 5px solid $secondary-foreground;
+  border-top-left-radius: 30px;
+
+  &__header {
+    margin: 0;
+    flex-basis: 20%;
+    font-size: 3rem;
+    font-weight: 100;
+    color: $secondary-foreground;
+  }
+
+  &__links {
+    margin-left: 20px;
+
+    a {
+      color: $primary-foreground;
+      font-weight: 100;
+      text-decoration: none;
+      border-bottom: 2px solid transparent;
+      font-size: 1.2rem;
+      padding: 3px;
+
+      &.active {
+        border-bottom-color: $secondary-foreground;
+      }
+
+      &:focus {
+        outline: 1px dotted $secondary-foreground;
+      }
+
+      &:hover {
+        color: $secondary-foreground;
+        transition: color 1s;
+      }
+    }
+  }
+}
+
+// mobile
+@media screen and (max-width: $screen-md-min) {
+  .navigation {
+    align-items: flex-start;
+    flex-direction: column;
+
+    &__header {
+      margin-bottom: 10px;
+    }
+
+    &__links {
+      margin-left: 0;
+    }
+  }
+}

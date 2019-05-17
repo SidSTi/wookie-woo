@@ -1,1 +1,42 @@
-@import 'components/all';
+#WOOKIE_WOO {
+  // common definitions
+  @import "definitions/all";
+
+  // layouts and other page-specific stylings
+  @import "sections/all";
+
+  // components: reusable patterns
+  @import "components/all";
+
+  // base styles
+  border-radius: 5px;
+  background: $primary-background;
+  margin: 10px auto;
+  padding: 20px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+  background: $secondary-background;
+}
+
+// desktop
+@media screen and (min-width: $screen-lg-min) {
+  #WOOKIE_WOO {
+    max-width: $screen-lg-max;
+  }
+}
+
+// tablet
+@media screen and (max-width: $screen-lg-min) {
+  #WOOKIE_WOO {
+    max-width: $screen-md-max;
+  }
+}
+
+// mobile
+@media screen and (max-width: $screen-md-min) {
+  #WOOKIE_WOO {
+    max-width: $screen-sm-max;
+  }
+}

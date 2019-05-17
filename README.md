@@ -1,7 +1,7 @@
 # wookie-woo
 
-This README outlines the details of collaborating on this Ember application.
-A short introduction of this app could easily go here.
+The details of collaborating on this Ember application, this README outlines.
+An Ember.js based SWAPI application, this is.
 
 ## Prerequisites
 
@@ -46,7 +46,10 @@ Make use of the many generators for code, try `ember help generate` for more det
 
 ### Deploying
 
-Specify what it takes to deploy your app.
+* `npm install --global surge`
+* `ember build --environment production` 
+* `cd wookie-woo/dist`
+* `surge`
 
 ## Further Reading / Useful Links
 
