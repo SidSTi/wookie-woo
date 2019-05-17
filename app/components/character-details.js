@@ -135,7 +135,9 @@ export default Component.extend({
     this._super(...arguments);
 
     if (this.links) {
-      set(this, 'loading', true);
+      if (!this.isDestroyed && !this.isDestroying) {
+        set(this, 'loading', true);
+      }
 
       this.api.findMany(this.links)
         .then(results => {
@@ -159,7 +161,11 @@ export default Component.extend({
           set(this, 'model', results);
           set(this, 'species', this.buildSpecies(results));
         })
-        .finally(() => set(this, 'loading', false));
+        .finally(() => {
+          if (!this.isDestroyed && !this.isDestroying) {
+            set(this, 'loading', false);
+          }
+        });
     }
   },
 
@@ -180,12 +186,12 @@ export default Component.extend({
      * @param {string} attribute - the attribute type.
      */
     sortBy(attribute) {
-      let modelCopy = [...this.model];
+      let model = [...this.model];
 
       switch (attribute) {
         case 'mass':
-          modelCopy.sort((a, b) => {
-            if (isNaN(a) || isNaN(b)) {
+          model.sort((a, b) => {
+            if (isNaN(a.mass) || isNaN(b.mass)) {
               return a.mass.localeCompare(b.mass);
             }
 
@@ -193,8 +199,8 @@ export default Component.extend({
           });
           break;
         case 'height':
-          modelCopy.sort((a, b) => {
-            if (isNaN(a) || isNaN(b)) {
+          model.sort((a, b) => {
+            if (isNaN(a.height) || isNaN(b.height)) {
               return a.height.localeCompare(b.height);
             }
 
@@ -202,17 +208,17 @@ export default Component.extend({
           });
           break;
         case 'name':
-          modelCopy.sort((a, b) => a.name.localeCompare(b.name));
+          model.sort((a, b) => a.name.localeCompare(b.name));
           break;
         case 'homeworld':
-          modelCopy.sort((a, b) => a.homeworld.name.localeCompare(b.homeworld.name));
+          model.sort((a, b) => a.homeworld.name.localeCompare(b.homeworld.name));
           break;
         default:
-          modelCopy.sort((a, b) => a.name.localeCompare(b.name));
+          model.sort((a, b) => a.name.localeCompare(b.name));
           break;
       }
 
-      set(this, 'model', modelCopy);
+      set(this, 'model', model);
     }
   }
 });
