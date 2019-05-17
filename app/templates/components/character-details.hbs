@@ -1,15 +1,23 @@
-<section class="character-details__species-list">
-  {{#each this.species as |species|}}
-    <Species @count={{species.count}} @name={{species.name}}/>
-  {{/each}}
-</section>
+{{#if this.loading}}
+  <Loader/>
+{{else}}
+  <section class="character-details__species-list">
+    {{#each this.species as |species|}}
+      <Species @count={{species.count}} @name={{species.name}}/>
+    {{/each}}
+  </section>
+{{/if}}
 
 <section class="character-details__list-controls">
   <PureSelect @name="sort-by" @placeholder="Sort By" @model={{this.sortOptions}} @onSelect={{action "sortBy"}}/>
 </section>
 
-<section class="character-details__container">
-  {{#each model as |character|}}
-    <CharacterDetails::Item @model={{character}}/>
-  {{/each}}
-</section>
+{{#if this.loading}}
+  <Loader/>
+{{else}}
+  <section class="character-details__container">
+    {{#each model as |character|}}
+      <CharacterDetails::Item @model={{character}}/>
+    {{/each}}
+  </section>
+{{/if}}
