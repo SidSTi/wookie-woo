@@ -62,6 +62,10 @@
       flex-wrap: wrap;
     }
 
+    &__container {
+      flex-direction: column;
+    }
+
     &__pill {
       flex-basis: 35%;
 
