@@ -1,0 +1,33 @@
+.species {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 10px;
+  margin-right: 15px;
+  margin-bottom: 15px;
+  color: $primary-foreground;
+  border-right: 1px solid $secondary-foreground;
+  border-bottom: 1px solid $secondary-foreground;
+  border-bottom-right-radius: 10px;
+
+  &__count {
+    font-size: 2.5rem;
+    color: $secondary-foreground;
+  }
+
+  &__info {
+    display: inline-flex;
+    flex-flow: column;
+    padding-left: 5px;
+  }
+
+  &__label {
+    text-transform: uppercase;
+    margin-right: 5px;
+    font-size: 0.7rem;
+    margin-bottom: 3px;
+  }
+
+  &__name {
+    text-transform: capitalize;
+  }
+}

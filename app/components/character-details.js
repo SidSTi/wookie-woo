@@ -1,4 +1,7 @@
 import Component from '@ember/component';
+import {
+  set
+} from '@ember/object';
 
 export default Component.extend({
 
@@ -10,17 +13,16 @@ export default Component.extend({
    * @property classNames
    * @type {string[]}
    */
-  classNames: ['box-office__item'],
+  classNames: ['character-details'],
 
   /**
-   * A list of properties of the view to apply as class names.
+   * Character links.
    *
-   * @private
-   * @override
-   * @property classNameBindings
+   * @public
+   * @property links
    * @type {string[]}
    */
-  classNameBindings: ['isStatic:box-office__item--static'],
+  links: null,
 
   /**
    * Component cache.
@@ -42,12 +44,18 @@ export default Component.extend({
   tagName: 'section',
 
   /**
-   * Default tag name for this component.
+   * Ember called upon each subsequent attribute insertion/update.
    *
    * @override
-   * @public
-   * @property isStatic
-   * @type {boolean}
+   * @private
+   * @function didReceiveAttrs
+   * 
+   * @returns {void}
    */
-  isStatic: false
+  didReceiveAttrs() {
+    this._super(...arguments);
+
+    this.api.findMany(this.links)
+      .then(results => set(this, 'model', results));
+  }
 });

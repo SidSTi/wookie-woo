@@ -1,0 +1,6 @@
+<select name={{this.name}} onchange={{action this.onSelect value="target.value"}}>
+  <option selected disabled>{{this.placeholder}}</option>
+  {{#each model as |optionItem|}}
+    <option value={{optionItem}}>{{optionItem}}</option>
+  {{/each}}
+</select>

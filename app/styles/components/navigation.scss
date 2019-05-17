@@ -40,3 +40,19 @@
     }
   }
 }
+
+// mobile
+@media screen and (max-width: $screen-md-min) {
+  .navigation {
+    align-items: flex-start;
+    flex-direction: column;
+
+    &__header {
+      margin-bottom: 10px;
+    }
+
+    &__links {
+      margin-left: 0;
+    }
+  }
+}

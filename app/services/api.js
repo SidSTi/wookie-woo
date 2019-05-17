@@ -4,6 +4,7 @@ import {
 import Service from '@ember/service';
 import fetch from 'fetch';
 import {
+  all,
   resolve
 } from 'rsvp';
 
@@ -34,7 +35,20 @@ export default Service.extend({
   timeout: 300000,
 
   /**
-   * Find records by url.
+   * Clean up url to remove special characters.
+   * 
+   * @public
+   * @function cleanupUrl
+   * @param {string} url 
+   * 
+   * @returns {string}
+   */
+  cleanupUrl(url = '') {
+    return url.replace(/[/]|[.]|[:]|[?]|[=]|[&]/g, '');
+  },
+
+  /**
+   * Fetch records by url.
    * 
    * @public
    * @function find
@@ -47,11 +61,11 @@ export default Service.extend({
   },
 
   /**
-   * Find records by resource name.
+   * Fetch all records by resource name.
    * 
    * @public
    * @function findAll
-   * @param {string} url 
+   * @param {string} resource 
    * 
    * @returns {Promise}
    */
@@ -60,11 +74,25 @@ export default Service.extend({
   },
 
   /**
-   * Find record by resource name and id.
+   * Fetch multiple records by making concurrent requests.
+   * 
+   * @public
+   * @function findMany
+   * @param {string[]} urls
+   * 
+   * @returns {Promise}
+   */
+  findMany(urls = []) {
+    return all(urls.map(url => this.find(url)));
+  },
+
+  /**
+   * Fetch record by resource name and id.
    * 
    * @public
    * @function findRecord
-   * @param {string} url 
+   * @param {string} resource 
+   * @param {string} id
    * 
    * @returns {Promise}
    */
@@ -83,14 +111,16 @@ export default Service.extend({
    * @returns {Promise}
    */
   getPayload(url) {
-    if (this.isCached(url) && !this.isStale(url)) {
-      return this.peek(url);
+    let cleanUrl = this.cleanupUrl(url);
+
+    if (this.isCached(cleanUrl) && !this.isStale(cleanUrl)) {
+      return this.peek(cleanUrl);
     }
 
     return fetch(url)
       .then(response => response.json())
       .then(payload => {
-        this.throttle(url, payload);
+        this.throttle(cleanUrl, payload);
 
         return payload;
       })
@@ -105,7 +135,10 @@ export default Service.extend({
    * Service initializer.
    * 
    * @override
+   * @public
    * @function init
+   * 
+   * @returns {void}
    */
   init() {
     this._super(...arguments);
@@ -114,13 +147,13 @@ export default Service.extend({
   },
 
   /**
-   * Peek payload from store.
+   * Determine whether a payload exists in cache.
    * 
    * @private
    * @function peek
    * @param {string} url 
    * 
-   * @returns {Promise}
+   * @returns {boolean}
    */
   isCached(url) {
     return this.store[url] ? true : false;
